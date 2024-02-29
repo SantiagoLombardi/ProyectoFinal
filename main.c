@@ -101,8 +101,14 @@ int main()
     {
       char nombreMedico[50];
       system("cls");
+      system("clear");
       printf("Ingrese el nombre del medico: ");
-      scanf("%s", nombreMedico);
+      
+      getchar();
+      fgets(nombreMedico, sizeof(nombreMedico), stdin);
+      nombreMedico[strcspn(nombreMedico, "\n")] = 0;
+
+      // scanf("%s", nombreMedico);
       consultasPorMedico(primerNodoConsulta, nombreMedico);
       break;
     }
@@ -111,11 +117,13 @@ int main()
       break;
     case 7:
       system("cls");
+      system("clear");
       guardarDatosEnArchivo(pacientes, numPacientes, primerNodoConsulta);
       printf("Datos guardados. Saliendo del programa.\n");
       break;
     default:
       system("cls");
+      system("clear");
       printf("Opcion invalida. Por favor, ingrese un numero valido.\n");
     }
   } while (opcion != 7);
@@ -126,6 +134,7 @@ int main()
 void registrarPaciente(Paciente pacientes[], int *numPacientes)
 {
   system("cls");
+  system("clear");
   // Condición que evalúa la cantidad de pacientes con el máximo permitido
   if (*numPacientes >= MAX_PACIENTES)
   {
@@ -146,10 +155,14 @@ void registrarPaciente(Paciente pacientes[], int *numPacientes)
   }
 
   printf("Ingrese el Apellido del paciente: ");
-  scanf("%s", nuevoPaciente.Apellido);
+  getchar(); 
+  fgets(nuevoPaciente.Apellido, sizeof(nuevoPaciente.Apellido), stdin);
+  nuevoPaciente.Apellido[strcspn(nuevoPaciente.Apellido, "\n")] = 0;
 
   printf("Ingrese el Nombre del paciente: ");
-  scanf("%s", nuevoPaciente.Nombres);
+
+  fgets(nuevoPaciente.Nombres, sizeof(nuevoPaciente.Nombres), stdin);
+  nuevoPaciente.Nombres[strcspn(nuevoPaciente.Nombres, "\n")] = 0;
 
   printf("Ingrese la fecha de nacimiento del paciente (DD MM AAAA): ");
   scanf("%d %d %d", &nuevoPaciente.FNacimiento.dia, &nuevoPaciente.FNacimiento.mes, &nuevoPaciente.FNacimiento.anio);
@@ -170,6 +183,7 @@ void registrarPaciente(Paciente pacientes[], int *numPacientes)
 void eliminarPaciente(Paciente pacientes[], int *numPacientes)
 {
   system("cls");
+  system("clear");
   int dni;
   printf("Ingrese el DNI del paciente que desea eliminar: ");
   scanf("%d", &dni);
@@ -194,6 +208,7 @@ void eliminarPaciente(Paciente pacientes[], int *numPacientes)
 void registrarConsulta(Paciente pacientes[], int numPacientes, NodoConsulta **primerNodoConsulta, int *numConsultas)
 {
   system("cls");
+  system("clear");
 
   // condicional que evalua si se alcanzo el maximo permitido de consultas, en caso de ser asi (condicional verdadero) no se permite agregar otra consulta y se vuelve al menú
   if (*numConsultas >= MAX_CONSULTAS)
@@ -222,18 +237,24 @@ void registrarConsulta(Paciente pacientes[], int numPacientes, NodoConsulta **pr
   nuevaConsulta.FConsulta = obtenerFechaActual();
 
   printf("Ingrese los sintomas: ");
-  scanf("%s", nuevaConsulta.Sintomas);
+  getchar();
+  fgets(nuevaConsulta.Sintomas, sizeof(nuevaConsulta.Sintomas), stdin);
+  nuevaConsulta.Sintomas[strcspn(nuevaConsulta.Sintomas, "\n")] = 0;
+
   printf("Ingrese el tratamiento: ");
-  scanf("%s", nuevaConsulta.Tratamiento);
+  
+  fgets(nuevaConsulta.Tratamiento, sizeof(nuevaConsulta.Tratamiento), stdin);
+  nuevaConsulta.Tratamiento[strcspn(nuevaConsulta.Tratamiento, "\n")] = 0;
+
 
   // ya que en el pdf las opciones ya estaban definidas y no habia una opcion como "otros", hice que el usuario tenga que elegir entre las opciones con un switch en vez de ingresar "manualmente" cada cuanto deberia ser el control
   printf("Ingrese el control (Seleccione una opcion):\n");
-  printf("1. No\n");
-  printf("2. 24hs\n");
-  printf("3. 48hs\n");
-  printf("4. 72hs\n");
-  printf("5. 1 Semana\n");
-  printf("6. 1 Mes\n");
+  printf("1) No\n");
+  printf("2) 24hs\n");
+  printf("3) 48hs\n");
+  printf("4) 72hs\n");
+  printf("5) 1 Semana\n");
+  printf("6) 1 Mes\n");
 
   int opcionControl;
   scanf("%d", &opcionControl);
@@ -264,9 +285,14 @@ void registrarConsulta(Paciente pacientes[], int numPacientes, NodoConsulta **pr
   }
 
   printf("Ingrese el nombre del medico: ");
-  scanf("%s", nuevaConsulta.NombreMedico);
+  getchar();
+  fgets(nuevaConsulta.NombreMedico, sizeof(nuevaConsulta.NombreMedico), stdin);
+  nuevaConsulta.NombreMedico[strcspn(nuevaConsulta.NombreMedico, "\n")] = 0;
+
   printf("Ingrese la especialidad del medico: ");
-  scanf("%s", nuevaConsulta.Especialidad);
+  
+  fgets(nuevaConsulta.Especialidad, sizeof(nuevaConsulta.Especialidad), stdin);
+  nuevaConsulta.Especialidad[strcspn(nuevaConsulta.Especialidad, "\n")] = 0;
 
   // se crea un nuevo nodo para la consulta
   NodoConsulta *nuevoNodo = (NodoConsulta *)malloc(sizeof(NodoConsulta));
@@ -303,6 +329,7 @@ void registrarConsulta(Paciente pacientes[], int numPacientes, NodoConsulta **pr
 void verHistoriaClinica(Paciente pacientes[], int numPacientes, NodoConsulta *primerNodoConsulta)
 {
   system("cls");
+  system("clear");
   int dni;
   printf("Ingrese el DNI del paciente: ");
   scanf("%d", &dni);
@@ -365,6 +392,7 @@ void consultasPorMedico(NodoConsulta *primerNodoConsulta, char nombreMedico[])
 void listadoChequeoPreventivo(Paciente pacientes[], int numPacientes)
 {
   system("cls");
+  system("clear");
   printf("Listado de Chequeo Preventivo (pacientes mayores de 40):\n");
 
   TFecha fechaActual = obtenerFechaActual();
